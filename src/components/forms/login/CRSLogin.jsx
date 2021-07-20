@@ -80,7 +80,7 @@ const CRSLogin = () => {
                                 <div className="field">
                                     <div className="control">
                                         <button
-                                            className="button s-link is-light"
+                                            className="button s-link is-light is-fullwidth"
                                             type="submit"
                                             disabled={!isValid}>
                                             Login

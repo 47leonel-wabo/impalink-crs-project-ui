@@ -1,6 +1,22 @@
 import React from 'react'
+import CRSMessageModal from "../modal/CRSMessageModal";
 
 const CRSDashboard = () => {
+
+    const [showModal, setShowModal] = React.useState(false)
+
+    const handleShowModal = () => {
+        setShowModal(true)
+    }
+
+    const handleSaveMessage = (evt) => {
+        alert(evt.target.value)
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false)
+    }
+
     return (
         <div className="container is-mobile">
             <div className="columns is-centered">
@@ -63,10 +79,57 @@ const CRSDashboard = () => {
                         <div className="columns">
                             <div className="column is-4" style={{backgroundColor: 'rgba(194,194,194,0.08)'}}>
                                 <h1 className="is-size-5 sub-title">Recent messages <span
-                                    className="tag is-warning">0</span></h1>
+                                    className="tag is-warning">0</span>
+                                    <button
+                                        onClick={() => handleShowModal()}
+                                        className="button is-info is-outlined is-rounded is-small"
+                                        style={{marginLeft: '16px'}}>
+                                        <span className="icon is-small" style={{marginRight: '8px'}}>
+                                          <i className="fas fa-plus"/>
+                                        </span>
+                                        New
+                                    </button>
+                                </h1>
                             </div>
-                            <div className="column" style={{backgroundColor: 'rgba(163,236,163,0.47)'}}>
-                                <h2>JIO</h2>
+                            <div className="column" style={{backgroundColor: 'rgba(245,245,245,0.47)'}}>
+                                <div className="columns">
+                                    <div className="column">
+                                        {
+                                            showModal &&
+                                            <div className={showModal ? "modal is-active" : "modal"}>
+                                                <div className="modal-background"/>
+                                                <div className="modal-card">
+                                                    <header className="modal-card-head">
+                                                        <p className="modal-card-title">New message</p>
+                                                        <button
+                                                            onClick={() => handleCloseModal(false)}
+                                                            className="delete"
+                                                            aria-label="close"
+                                                        />
+                                                    </header>
+                                                    <section className="modal-card-body">
+                                                        <div className="field">
+                                                            <label className="label">Subject</label>
+                                                            <div className="control">
+                                                                <input className="input" type="text" placeholder="Text input"/>
+                                                            </div>
+                                                        </div>
+                                                        <div className="field">
+                                                            <label className="label">Your message</label>
+                                                            <textarea className="textarea" placeholder="e.g. Hello world"/>
+                                                        </div>
+                                                    </section>
+
+                                                    <footer className="modal-card-foot">
+                                                        <button className="button is-success"
+                                                                onClick={handleSaveMessage}>Save message
+                                                        </button>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>

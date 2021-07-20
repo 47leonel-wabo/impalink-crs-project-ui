@@ -250,7 +250,7 @@ const CRSRegister = () => {
                                 <div className="field">
                                     <div className="control">
                                         <button
-                                            className="button is-link is-light"
+                                            className="button is-link is-light is-rounded is-fullwidth"
                                             type="submit"
                                             disabled={!isValid}
                                         >Register
