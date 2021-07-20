@@ -7,6 +7,7 @@ import CRSLogin from "./components/forms/login/CRSLogin";
 import CRSRegister from "./components/forms/register/CRSRegister";
 import CRSAbout from "./components/about/CRSAbout";
 import CRSServices from "./components/services/CRSServices";
+import CRSDashboard from "./components/dashboard/CRSDashboard";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/register" component={CRSRegister}/>
                     <Route path="/about" component={CRSAbout}/>
                     <Route path="/services" component={CRSServices}/>
+                    <Route path="/dashboard" component={CRSDashboard}/>
                 </Switch>
             </div>
         </BrowserRouter>
