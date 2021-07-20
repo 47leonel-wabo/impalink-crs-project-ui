@@ -1,9 +1,10 @@
 import React from 'react'
-import CRSMessageModal from "../modal/CRSMessageModal";
+import MessageDetails from "../details/MessageDetails";
 
 const CRSDashboard = () => {
 
     const [showModal, setShowModal] = React.useState(false)
+    const [messageList, setMessageList] = React.useState([])
 
     const handleShowModal = () => {
         setShowModal(true)
@@ -90,8 +91,14 @@ const CRSDashboard = () => {
                                         New
                                     </button>
                                 </h1>
+                                <div className="columns is-centered">
+                                    <div className="section">
+                                        <span className="is-size-4" style={{color: 'rgb(186,186,186)'}}>No data</span>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div className="column" style={{backgroundColor: 'rgba(245,245,245,0.47)'}}>
+                            <div className="column">
                                 <div className="columns">
                                     <div className="column">
                                         {
@@ -111,12 +118,14 @@ const CRSDashboard = () => {
                                                         <div className="field">
                                                             <label className="label">Subject</label>
                                                             <div className="control">
-                                                                <input className="input" type="text" placeholder="Text input"/>
+                                                                <input className="input" type="text"
+                                                                       placeholder="Text input"/>
                                                             </div>
                                                         </div>
                                                         <div className="field">
                                                             <label className="label">Your message</label>
-                                                            <textarea className="textarea" placeholder="e.g. Hello world"/>
+                                                            <textarea className="textarea"
+                                                                      placeholder="e.g. Hello world"/>
                                                         </div>
                                                     </section>
 
@@ -127,6 +136,10 @@ const CRSDashboard = () => {
                                                     </footer>
                                                 </div>
                                             </div>
+                                        }
+                                        {
+                                            messageList.length === 0 &&
+                                                <MessageDetails messageObject={[]} />
                                         }
                                     </div>
                                 </div>

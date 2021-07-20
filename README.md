@@ -9,3 +9,7 @@ This is the frontend application for the customer relation management which aims
 - Fontawesome
 - Bulma CSS
 - Axios
+
+## Screenshot
+
+![Dashboard](./screenshot/dashboard.png)
