@@ -1,19 +1,25 @@
 import React from 'react'
 import MessageDetails from "../details/MessageDetails";
+import dummyMessages from "../message/dummyMessages";
+import './dashboard.css'
 
 const CRSDashboard = () => {
 
     const [showModal, setShowModal] = React.useState(false)
+    const [selectedMessage, setSelectedMessage] = React.useState(null)
     const [messageList, setMessageList] = React.useState([])
     const [messageObject, setMessageObject] = React.useState({subject: '', content: ''})
+
+    React.useEffect(() => {
+        setMessageList(dummyMessages.messages())
+    }, [])
 
     const handleShowModal = () => {
         setShowModal(true)
     }
 
     const handleSaveMessage = (evt) => {
-        if (!messageObject.subject || !messageObject.content){
-            alert('Please provide Subject and Message content')
+        if (!messageObject.subject || !messageObject.content) {
             return;
         }
         alert(JSON.stringify(messageObject))
@@ -85,9 +91,12 @@ const CRSDashboard = () => {
                     <section className="section">
                         <div className="columns">
                             {/* This column shows hold message list objects, as well as their numbers and a button for message creation */}
-                            <div className="column is-4" style={{backgroundColor: 'rgba(194,194,194,0.08)'}}>
-                                <h1 className="is-size-5 sub-title">Recent messages <span
-                                    className="tag is-warning">0</span>
+                            <div className="column is-4" style={{padding: '16px'}}>
+                                <h1 className="is-size-5 sub-title">Recent messages
+                                    {
+                                        messageList &&
+                                        <span className="tag is-warning">{messageList.length}</span>
+                                    }
                                     <button
                                         onClick={() => handleShowModal()}
                                         className="button is-info is-outlined is-rounded is-small"
@@ -99,11 +108,36 @@ const CRSDashboard = () => {
                                     </button>
                                 </h1>
                                 <div className="columns is-centered">
-                                    <div className="section">
-                                        <span className="is-size-4" style={{color: 'rgb(186,186,186)'}}>No data</span>
+
+                                    <div className="column">
+                                        {
+                                            messageList.length !== 0 ? (messageList.map(msg => {
+                                                    return <div
+                                                        className="box message-box"
+                                                        onClick={() => setSelectedMessage(msg)}
+                                                        key={msg.id}
+                                                        style={{
+                                                            padding: '16px',
+                                                            border: '1px solid #EEEEEE',
+                                                            borderRadius: '10px',
+                                                            cursor: 'pointer',
+                                                            margin: '8px 0'
+                                                        }}
+                                                    >
+                                                        <p>
+                                                            <h2 className="title is-size-6">{msg.title}</h2>
+                                                            <section>{msg.content}</section>
+                                                            <h6 className="subtitle is-6">{msg.date}</h6>
+                                                        </p>
+                                                    </div>
+                                                })
+                                            ) : (
+                                                <div className="section">
+                                                    <span className="is-size-4" style={{color: 'rgb(186,186,186)'}}>No data</span>
+                                                </div>)
+                                        }
                                     </div>
                                 </div>
-
                             </div>
                             {/* This column is the one at the center, design to show message content */}
                             <div className="column">
@@ -160,8 +194,8 @@ const CRSDashboard = () => {
                                             </div>
                                         }
                                         {
-                                            messageList.length === 0 &&
-                                            <MessageDetails messageObject={[]}/>
+                                            messageList.length !== 0 &&
+                                            <MessageDetails messageObject={selectedMessage}/>
                                         }
                                     </div>
                                 </div>
